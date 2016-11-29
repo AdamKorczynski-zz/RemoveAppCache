@@ -1,30 +1,39 @@
 <!doctype html>
-<html lang="en-gb">
+<html lang="en-gb"  manifest="offline.appcache" >
 <head>
  	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Site Index</title>
-	<link rel="stylesheet" href="/localstorage-cache/css/core-v1.css">
+	<link rel="stylesheet" href="/css/core-v1.css">
 </head>
 <body>
-	<h1>Site Index</h1>
+	<h1>Site Index 2</h1>
 	<ul class="article-list">
+		<h3>pre-change</h3>
 		<li><a href="articles/1.html">Article 1</a></li>
 		<li><a href="articles/2.html">Article 2</a></li>
 	</ul>
-	<script src="/localstorage-cache/js/jquery-1.7.1.js"></script>
-	<script src="/localstorage-cache/js/offliner-v1.js"></script>
-	<script src="/localstorage-cache/js/offlineInterface-v1.js"></script>
+	<script src="/js/jquery-1.7.1.js"></script>
+	<script src="/js/offliner-v1.js"></script>
+	<script src="/js/offlineInterface-v1.js"></script>
 
 	<script>
-		$( function() {
-			if ( !offliner.isOffline ) {
-				offliner.cacheCurrentPage();
-				offliner.addCachingIframe();
+		window.addEventListener('load', function(e) {
+		if (window.applicationCache) {
+			function checkCache() {
+				if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+					// Browser downloaded a new app cache.
+					// Swap it in and reload the page to get the new hotness.
+					window.applicationCache.swapCache();
+					window.location.reload();
+				} else {
+					// Manifest didn't changed. Nothing new to server.A
+				}
 			}
-			
-			offlineInterface.addCacheClass( '.article-list a' );
-		});
+			window.applicationCache.addEventListener('updateready', function(e) { checkCache(); }, false);
+			checkCache();
+		}
+	}, false);
 	</script>
 </body>
 </html>

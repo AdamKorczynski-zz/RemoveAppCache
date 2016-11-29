@@ -1,12 +1,14 @@
-CACHE MANIFEST
+CACHE MANIFEST 6
 
 js/jquery-1.7.1.js
 js/offliner-v1.js
 js/offlineInterface-v1.js
 css/core-v1.css
+articles/1.html
+articles/2.html
 
 NETWORK:
 *
 
-FALLBACK:
-/localstorage-cache/ fallback.html
+SETTINGS:
+prefer-online
